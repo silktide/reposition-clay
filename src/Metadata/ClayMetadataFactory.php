@@ -4,9 +4,9 @@ namespace Silktide\Reposition\Clay\Metadata;
 
 use Silktide\Reposition\Exception\MetadataException;
 use Silktide\Reposition\Metadata\EntityMetadata;
-use Silktide\Reposition\Metadata\MetadataProviderInterface;
+use Silktide\Reposition\Metadata\EntityMetadataFactoryInterface;
 
-class ClayMetadataProvider implements MetadataProviderInterface
+class ClayMetadataFactory implements EntityMetadataFactoryInterface
 {
 
     protected $getters = [];
@@ -18,7 +18,7 @@ class ClayMetadataProvider implements MetadataProviderInterface
     /**
      * {@inheritDoc}
      */
-    public function getMetadata($reference)
+    public function createMetadata($reference)
     {
         $ref = new \ReflectionClass($reference);
 
@@ -43,9 +43,8 @@ class ClayMetadataProvider implements MetadataProviderInterface
                 }
             }
             $class = $firstParam->getClass();
-            if (!empty($class) && !empty($class->getNamespaceName())) {
-                // TODO: relationships
-            } else {
+            // ignore properties that have relationships with other entities
+            if (empty($class) || empty($class->getNamespaceName())) {
                 /** @var \ReflectionMethod $getterMethod */
                 $getterMethod = $this->getters[$property];
                 $getter = $getterMethod->getName();

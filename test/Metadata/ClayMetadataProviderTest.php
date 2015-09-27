@@ -2,7 +2,7 @@
 
 namespace Silktide\Reposition\Clay\Test\Metadata;
 
-use Silktide\Reposition\Clay\Metadata\ClayMetadataProvider;
+use Silktide\Reposition\Clay\Metadata\ClayMetadataFactory;
 use Silktide\Reposition\Metadata\EntityMetadata;
 
 class ClayMetadataProviderTest extends \PHPUnit_Framework_TestCase {
@@ -13,14 +13,13 @@ class ClayMetadataProviderTest extends \PHPUnit_Framework_TestCase {
      * @param $entity
      * @param $expectedMetadata
      */
-    public function testProvidingMetadata($entity, $expectedMetadata)
+    public function testCreatingMetadata($entity, $expectedMetadata)
     {
-        $metadataProvider = new ClayMetadataProvider();
-        $metadata = $metadataProvider->getMetadata($entity);
+        $metadataFactory = new ClayMetadataFactory();
+        $metadata = $metadataFactory->createMetadata($entity);
 
         $metadataArray = [
-            "fields" => $metadata->getFields(),
-            "relationships" => $metadata->getRelationships()
+            "fields" => $metadata->getFields()
         ];
 
         $this->assertEquals($expectedMetadata, $metadataArray);
@@ -31,7 +30,7 @@ class ClayMetadataProviderTest extends \PHPUnit_Framework_TestCase {
         $type = EntityMetadata::METADATA_FIELD_TYPE;
 
         return [
-            [
+            [ // types
                 "Silktide\\Reposition\\Clay\\Test\\Metadata\\TestEntity\\TypeEntity",
                 [
                     "fields" => [
@@ -42,8 +41,7 @@ class ClayMetadataProviderTest extends \PHPUnit_Framework_TestCase {
                         "untypedProp" => [$type => EntityMetadata::FIELD_TYPE_STRING],
                         "datetimeProp" => [$type => EntityMetadata::FIELD_TYPE_DATETIME],
                         "arrayProp" => [$type => EntityMetadata::FIELD_TYPE_ARRAY]
-                    ],
-                    "relationships" => []
+                    ]
                 ]
             ]
         ];
