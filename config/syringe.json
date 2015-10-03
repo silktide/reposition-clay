@@ -1,5 +1,18 @@
 {
-    "services": {
+  "services": {
 
+    "hydrator": {
+      "class": "Silktide\\Reposition\\Clay\\Hydrator\\ClayHydrator",
+      "calls": [
+        {
+          "method": "setNormaliser",
+          "arguments": ["@silktide_reposition.normaliser"]
+        }
+      ]
+    },
+
+    "metadataFactory": {
+      "class": "Silktide\\Reposition\\Clay\\Metadata\\ClayMetadataFactory"
     }
+  }
 }
