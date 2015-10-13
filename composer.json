@@ -4,16 +4,15 @@
   "license": "MIT",
   "homepage": "https://github.com/silktide/reposition-clay",
   "repositories": [
-      {
-          "type": "vcs",
-          "url": "https://github.com/downsider/reposition"
-      }
-
+    {
+      "type": "composer",
+      "url": "http://satis.silktide.com"
+    }
   ],
   "require": {
     "php": ">=5.5.0",
-    "silktide/reposition": "dev-develop",
-    "downsider/clay": "~1"
+    "silktide/reposition": "^1.0",
+    "downsider/clay": "^1.0"
   },
   "require-dev": {
     "phpunit/phpunit": "4.*",
