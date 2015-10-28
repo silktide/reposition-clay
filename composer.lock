@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "downsider/clay",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/downsider/clay.git",
-                "reference": "fa80db92e57ef3af83a3b2b628a559856b1c1e31"
+                "reference": "9f0aac498cbd228ca3696a07c194ead8fe2cefb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/downsider/clay/zipball/fa80db92e57ef3af83a3b2b628a559856b1c1e31",
-                "reference": "fa80db92e57ef3af83a3b2b628a559856b1c1e31",
+                "url": "https://api.github.com/repos/downsider/clay/zipball/9f0aac498cbd228ca3696a07c194ead8fe2cefb8",
+                "reference": "9f0aac498cbd228ca3696a07c194ead8fe2cefb8",
                 "shasum": ""
             },
             "require": {
@@ -45,20 +45,20 @@
                 "model",
                 "models"
             ],
-            "time": "2015-10-28 00:19:07"
+            "time": "2015-10-28 22:40:13"
         },
         {
             "name": "silktide/reposition",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/silktide/reposition.git",
-                "reference": "31f994fb457a1d251918d15320ec2d801f88164d"
+                "reference": "6519f25b8950031f4e368d39745f88ca6cabb34f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/silktide/reposition/zipball/31f994fb457a1d251918d15320ec2d801f88164d",
-                "reference": "31f994fb457a1d251918d15320ec2d801f88164d",
+                "url": "https://api.github.com/repos/silktide/reposition/zipball/6519f25b8950031f4e368d39745f88ca6cabb34f",
+                "reference": "6519f25b8950031f4e368d39745f88ca6cabb34f",
                 "shasum": ""
             },
             "require": {
@@ -91,7 +91,7 @@
             ],
             "description": "A modular database abstraction system",
             "homepage": "https://github.com/silktide/reposition",
-            "time": "2015-10-28 00:43:41"
+            "time": "2015-10-28 22:55:21"
         }
     ],
     "packages-dev": [
