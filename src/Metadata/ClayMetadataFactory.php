@@ -22,6 +22,11 @@ class ClayMetadataFactory implements EntityMetadataFactoryInterface
      */
     public function createMetadata($reference)
     {
+        // clear the method arrays
+        $this->getters = [];
+        $this->setters = [];
+        $this->adders = [];
+
         $ref = new \ReflectionClass($reference);
 
         $this->findClayMethods($ref);
