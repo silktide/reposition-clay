@@ -6,13 +6,21 @@
       "calls": [
         {
           "method": "setNormaliser",
-          "arguments": ["@silktide_reposition.normaliser"]
+          "arguments": ["@silktide_reposition.defaultNormaliser"]
         }
       ]
     },
 
     "metadataFactory": {
       "class": "Silktide\\Reposition\\Clay\\Metadata\\ClayMetadataFactory"
+    },
+
+    "silktide_reposition.defaultHydrator": {
+      "aliasOf": "@hydrator"
+    },
+
+    "silktide_reposition.defaultMetadataFactory": {
+      "aliasOf": "@metadataFactory"
     }
   }
 }
