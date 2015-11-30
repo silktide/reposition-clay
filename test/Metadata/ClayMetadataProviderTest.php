@@ -34,13 +34,13 @@ class ClayMetadataProviderTest extends \PHPUnit_Framework_TestCase {
                 "Silktide\\Reposition\\Clay\\Test\\Metadata\\TestEntity\\TypeEntity",
                 [
                     "fields" => [
-                        "boolProp" => [$type => EntityMetadata::FIELD_TYPE_BOOL],
-                        "intProp" => [$type => EntityMetadata::FIELD_TYPE_INT],
-                        "floatProp" => [$type => EntityMetadata::FIELD_TYPE_FLOAT],
-                        "stringProp" => [$type => EntityMetadata::FIELD_TYPE_STRING],
-                        "untypedProp" => [$type => EntityMetadata::FIELD_TYPE_STRING],
-                        "datetimeProp" => [$type => EntityMetadata::FIELD_TYPE_DATETIME],
-                        "arrayProp" => [$type => EntityMetadata::FIELD_TYPE_ARRAY]
+                        "bool_prop" => [$type => EntityMetadata::FIELD_TYPE_BOOL],
+                        "int_prop" => [$type => EntityMetadata::FIELD_TYPE_INT],
+                        "float_prop" => [$type => EntityMetadata::FIELD_TYPE_FLOAT],
+                        "string_prop" => [$type => EntityMetadata::FIELD_TYPE_STRING],
+                        "untyped_prop" => [$type => EntityMetadata::FIELD_TYPE_STRING],
+                        "datetime_prop" => [$type => EntityMetadata::FIELD_TYPE_DATETIME],
+                        "array_prop" => [$type => EntityMetadata::FIELD_TYPE_ARRAY]
                     ]
                 ]
             ]

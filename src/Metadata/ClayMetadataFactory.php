@@ -2,12 +2,14 @@
 
 namespace Silktide\Reposition\Clay\Metadata;
 
+use Downsider\Clay\Model\NameConverterTrait;
 use Silktide\Reposition\Exception\MetadataException;
 use Silktide\Reposition\Metadata\EntityMetadata;
 use Silktide\Reposition\Metadata\EntityMetadataFactoryInterface;
 
 class ClayMetadataFactory implements EntityMetadataFactoryInterface
 {
+    use NameConverterTrait;
 
     protected $getters = [];
 
@@ -20,6 +22,11 @@ class ClayMetadataFactory implements EntityMetadataFactoryInterface
      */
     public function createMetadata($reference)
     {
+        // clear the method arrays
+        $this->getters = [];
+        $this->setters = [];
+        $this->adders = [];
+
         $ref = new \ReflectionClass($reference);
 
         $this->findClayMethods($ref);
@@ -33,28 +40,38 @@ class ClayMetadataFactory implements EntityMetadataFactoryInterface
 
         foreach ($this->setters as $property => $setterMethod) {
             /** @var \ReflectionMethod $setterMethod */
-            /** @var \ReflectionParameter $firstParam */
-            $firstParam = $setterMethod->getParameters()[0];
-            if ($firstParam->isArray()) {
+            /** @var \ReflectionParameter $valueParam */
+            $valueParam = $setterMethod->getParameters()[0];
+            if ($valueParam->isArray()) {
                 // this is a collection, check for an adder so we can check type on the collection elements
-                if (!empty($adders[$property])) {
+                if (!empty($this->adders[$property])) {
                     $setterMethod = $this->adders[$property];
-                    $firstParam = $setterMethod->getParameters()[0];
+                    $arguments = $setterMethod->getParameters();
+                    // take the last argument, as the value parameter will be #2 for adders that apply to associative arrays
+                    $valueParam = end($arguments);
                 }
             }
-            $class = $firstParam->getClass();
+            $class = $valueParam->getClass();
             // ignore properties that have relationships with other entities
             if (empty($class) || empty($class->getNamespaceName())) {
-                /** @var \ReflectionMethod $getterMethod */
-                $getterMethod = $this->getters[$property];
-                $getter = $getterMethod->getName();
-                $setter = $setterMethod->getName();
+                if ($valueParam->isArray()) {
+                    $type = EntityMetadata::FIELD_TYPE_ARRAY;
+                } else {
+                    /** @var \ReflectionMethod $getterMethod */
+                    $getterMethod = $this->getters[$property];
+                    $getter = $getterMethod->getName();
+                    $setter = $setterMethod->getName();
 
-                // detect type
-                $type = $this->detectPropertyType($ref, $getter, $setter, $property);
+                    // detect type
+                    $type = $this->detectPropertyType($ref, $getter, $setter, $property);
+                }
                 $fieldMetadata = [
                     EntityMetadata::METADATA_FIELD_TYPE => $type
                 ];
+
+                // underscore the property name
+                $property = $this->toSplitCase($property);
+
                 $entityMetadata->addFieldMetadata($property, $fieldMetadata);
             }
         }
@@ -103,30 +120,27 @@ class ClayMetadataFactory implements EntityMetadataFactoryInterface
         $instance = $ref->newInstance();
 
         // setup detection data
-        $data = [
+        $scalarData = [
             EntityMetadata::FIELD_TYPE_BOOL => true,
             EntityMetadata::FIELD_TYPE_INT => 46,
             EntityMetadata::FIELD_TYPE_FLOAT => 23.653,
-            EntityMetadata::FIELD_TYPE_STRING => "test",
+            EntityMetadata::FIELD_TYPE_STRING => "test"
+        ];
+        $complexData = [
             EntityMetadata::FIELD_TYPE_DATETIME => new \DateTime(),
             EntityMetadata::FIELD_TYPE_ARRAY => [1, 2, 3]
         ];
 
         // detect types. It is possible we will have more than one test come back positive.
         $results = [];
-        foreach ($data as $type => $value) {
-            // set the value on this property and get it back again
-            // catch exceptions. Means the input was invalid for this property
-            try {
-                $instance->{$setter}($value);
-            } catch (\Exception $e) {
-                continue;
-            }
-            $result = $instance->{$getter}();
+        foreach ($scalarData as $type => $value) {
+            $this->checkFieldType($results, $instance, $setter, $getter, $type, $value);
+        }
 
-            // check if the original value is exactly the same what we got back
-            if ($value === $result) {
-                $results[$type] = true;
+        // if we don't have any matches so far, try more complex data
+        if (empty($results)) {
+            foreach ($complexData as $type => $value) {
+                $this->checkFieldType($results, $instance, $setter, $getter, $type, $value);
             }
         }
 
@@ -142,6 +156,23 @@ class ClayMetadataFactory implements EntityMetadataFactoryInterface
         }
         // if we can't tell, default to the string type
         return EntityMetadata::FIELD_TYPE_STRING;
+    }
+
+    protected function checkFieldType(&$results, $instance, $setter, $getter, $type, $value)
+    {
+        // set the value on this property, get it back again and compare the two values
+        // catch exceptions. Means the input was invalid for this property
+        try {
+            $instance->{$setter}($value);
+        } catch (\Exception $e) {
+            return;
+        }
+        $result = $instance->{$getter}();
+
+        // check if the original value is exactly the same what we got back
+        if ($value === $result) {
+            $results[$type] = true;
+        }
     }
 
 } 
