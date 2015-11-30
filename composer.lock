@@ -5,19 +5,20 @@
         "This file is @generated automatically"
     ],
     "hash": "940ff3d0336f486341577d19999c12d9",
+    "content-hash": "4d315b5464a1c4496a62dbb910ecd182",
     "packages": [
         {
             "name": "downsider/clay",
-            "version": "1.0.1",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/downsider/clay.git",
-                "reference": "4e9495f819b93155db215550ff428c4aa489fe6f"
+                "reference": "fed659ecb58ebf3b9d202436d56193c8f1ca7010"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/downsider/clay/zipball/4e9495f819b93155db215550ff428c4aa489fe6f",
-                "reference": "4e9495f819b93155db215550ff428c4aa489fe6f",
+                "url": "https://api.github.com/repos/downsider/clay/zipball/fed659ecb58ebf3b9d202436d56193c8f1ca7010",
+                "reference": "fed659ecb58ebf3b9d202436d56193c8f1ca7010",
                 "shasum": ""
             },
             "require": {
@@ -44,20 +45,20 @@
                 "model",
                 "models"
             ],
-            "time": "2015-03-24 18:02:30"
+            "time": "2015-11-18 12:00:23"
         },
         {
             "name": "silktide/reposition",
-            "version": "1.0.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/silktide/reposition.git",
-                "reference": "4c53518b95f347d9e01144dd0fda2cf500226bd7"
+                "reference": "6c8046574b28a2cf21ca27a09deaffb3345667ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/silktide/reposition/zipball/4c53518b95f347d9e01144dd0fda2cf500226bd7",
-                "reference": "4c53518b95f347d9e01144dd0fda2cf500226bd7",
+                "url": "https://api.github.com/repos/silktide/reposition/zipball/6c8046574b28a2cf21ca27a09deaffb3345667ef",
+                "reference": "6c8046574b28a2cf21ca27a09deaffb3345667ef",
                 "shasum": ""
             },
             "require": {
@@ -90,7 +91,7 @@
             ],
             "description": "A modular database abstraction system",
             "homepage": "https://github.com/silktide/reposition",
-            "time": "2015-10-13 19:59:46"
+            "time": "2015-11-30 18:31:44"
         }
     ],
     "packages-dev": [
@@ -609,16 +610,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.12",
+            "version": "4.8.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "00194eb95989190a73198390ceca081ad3441a7f"
+                "reference": "b2caaf8947aba5e002d42126723e9d69795f32b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/00194eb95989190a73198390ceca081ad3441a7f",
-                "reference": "00194eb95989190a73198390ceca081ad3441a7f",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b2caaf8947aba5e002d42126723e9d69795f32b4",
+                "reference": "b2caaf8947aba5e002d42126723e9d69795f32b4",
                 "shasum": ""
             },
             "require": {
@@ -677,7 +678,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-10-12 03:36:47"
+            "time": "2015-11-30 08:18:59"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1108,34 +1109,34 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.7.5",
+            "version": "v2.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "31cb2ad0155c95b88ee55fe12bc7ff92232c1770"
+                "reference": "f79824187de95064a2f5038904c4d7f0227fedb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/31cb2ad0155c95b88ee55fe12bc7ff92232c1770",
-                "reference": "31cb2ad0155c95b88ee55fe12bc7ff92232c1770",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/f79824187de95064a2f5038904c4d7f0227fedb5",
+                "reference": "f79824187de95064a2f5038904c4d7f0227fedb5",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.9"
             },
-            "require-dev": {
-                "symfony/phpunit-bridge": "~2.7"
-            },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.7-dev"
+                    "dev-master": "2.8-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\Yaml\\": ""
-                }
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1153,7 +1154,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2015-09-14 14:14:09"
+            "time": "2015-11-30 12:35:10"
         }
     ],
     "aliases": [],
