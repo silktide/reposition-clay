@@ -79,9 +79,11 @@ class ClayHydrator implements HydratorInterface
             throw new HydrationException("Invalid class name (not a string)");
         }
         if (!class_exists($class)) {
-            throw new HydrationException("Could not hydrate. the class '$class' does not exist");
+            throw new HydrationException("Could not hydrate. The class '$class' does not exist");
         }
-        // TODO: check this class actually uses Clay
+        if (!method_exists($class, "loadData") || !method_exists($class, "toArray")) {
+            throw new HydrationException("Could not hydrate. The class '$class' does not use the Clay ModelTrait");
+        }
     }
 
 } 
