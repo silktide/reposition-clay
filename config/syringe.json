@@ -3,6 +3,9 @@
 
     "hydrator": {
       "class": "Silktide\\Reposition\\Clay\\Hydrator\\ClayHydrator",
+      "arguments": [
+        "@silktide_reposition.collectionFactory"
+      ],
       "calls": [
         {
           "method": "setNormaliser",
