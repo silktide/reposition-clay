@@ -54,19 +54,21 @@ class ClayMetadataFactory implements EntityMetadataFactoryInterface
             $class = $valueParam->getClass();
             // ignore properties that have relationships with other entities
             if (empty($class) || empty($class->getNamespaceName())) {
+                /** @var \ReflectionMethod $getterMethod */
+                $getterMethod = $this->getters[$property];
+                $getter = $getterMethod->getName();
+                $setter = $setterMethod->getName();
+
                 if ($valueParam->isArray()) {
                     $type = EntityMetadata::FIELD_TYPE_ARRAY;
                 } else {
-                    /** @var \ReflectionMethod $getterMethod */
-                    $getterMethod = $this->getters[$property];
-                    $getter = $getterMethod->getName();
-                    $setter = $setterMethod->getName();
-
                     // detect type
                     $type = $this->detectPropertyType($ref, $getter, $setter, $property);
                 }
                 $fieldMetadata = [
-                    EntityMetadata::METADATA_FIELD_TYPE => $type
+                    EntityMetadata::METADATA_FIELD_TYPE => $type,
+                    EntityMetadata::METADATA_FIELD_GETTER => $getter,
+                    EntityMetadata::METADATA_FIELD_SETTER => $setter,
                 ];
 
                 // underscore the property name
