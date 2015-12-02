@@ -22,7 +22,7 @@ class ClayHydrator implements HydratorInterface
 
     public function __construct(CollectionFactory $collectionFactory)
     {
-        $this->$collectionFactory = $collectionFactory;
+        $this->collectionFactory = $collectionFactory;
     }
 
     /**
