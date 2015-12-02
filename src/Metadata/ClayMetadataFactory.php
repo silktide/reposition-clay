@@ -82,6 +82,11 @@ class ClayMetadataFactory implements EntityMetadataFactoryInterface
 
     }
 
+    public function createEmptyMetadata()
+    {
+        return new EntityMetadata("");
+    }
+
     /**
      * search through all the public methods of this class and save all the getters, setters and adders
      *
