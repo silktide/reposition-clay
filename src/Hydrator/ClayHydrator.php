@@ -2,6 +2,7 @@
 
 namespace Silktide\Reposition\Clay\Hydrator;
 
+use Silktide\Reposition\Collection\Collection;
 use Silktide\Reposition\Exception\HydrationException;
 use Silktide\Reposition\Normaliser\NormaliserInterface;
 use Silktide\Reposition\Hydrator\HydratorInterface;
@@ -58,8 +59,20 @@ class ClayHydrator implements HydratorInterface
      */
     protected function doHydrate(array $data, $class, array $options = [])
     {
+        $entity = new $class($data, $this->collectionFactory);
 
-        return new $class($data, $this->collectionFactory);
+        if (!empty($options["trackCollectionChanges"])) {
+            // if this entity has collections, track any changes
+            foreach (get_class_methods($entity) as $method) {
+                if (strpos($method, "get") === 0) {
+                    $value = $entity->{$method}();
+                    if ($value instanceof Collection) {
+                        $value->setChangeTracking();
+                    }
+                }
+            }
+        }
+        return $entity;
     }
 
     /**
