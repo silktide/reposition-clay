@@ -4,7 +4,7 @@
     "hydrator": {
       "class": "Silktide\\Reposition\\Clay\\Hydrator\\ClayHydrator",
       "arguments": [
-        "@silktide_reposition.collectionFactory"
+        "@entityFactory"
       ],
       "calls": [
         {
@@ -16,6 +16,13 @@
 
     "metadataFactory": {
       "class": "Silktide\\Reposition\\Clay\\Metadata\\ClayMetadataFactory"
+    },
+
+    "entityFactory": {
+      "class": "Silktide\\Reposition\\Clay\\Hydrator\\EntityFactory",
+      "arguments": [
+        "@silktide_reposition.collectionFactory"
+      ]
     },
 
     "silktide_reposition.defaultHydrator": {
