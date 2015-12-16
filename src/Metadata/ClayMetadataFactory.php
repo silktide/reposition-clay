@@ -91,8 +91,9 @@ class ClayMetadataFactory implements EntityMetadataFactoryInterface
      * search through all the public methods of this class and save all the getters, setters and adders
      *
      * @param \ReflectionClass $ref
+     * @param bool $isSubclass
      */
-    protected function findClayMethods(\ReflectionClass $ref)
+    protected function findClayMethods(\ReflectionClass $ref, $isSubclass = false)
     {
         $publicMethods = $ref->getMethods(\ReflectionMethod::IS_PUBLIC);
 
@@ -114,6 +115,52 @@ class ClayMetadataFactory implements EntityMetadataFactoryInterface
                 }
                 $this->{$collection}[$property] = $method;
             }
+        }
+
+        if (!$isSubclass) {
+            $defaultProperties = $ref->getDefaultProperties();
+            if (!empty($defaultProperties["modelDiscriminatorMap"])) {
+                $this->findSubclassClayMethods($defaultProperties["modelDiscriminatorMap"], $ref->getNamespaceName());
+            }
+        }
+    }
+
+    /**
+     * @param array $discriminator
+     * @param string $parentNamespace
+     * @throws MetadataException
+     */
+    protected function findSubclassClayMethods(array $discriminator, $parentNamespace)
+    {
+        // get defaults for if we're not using FQCNs
+        $namespace = !empty($discriminator["subclassNamespace"])? $discriminator["subclassNamespace"]: $parentNamespace;
+        $suffix = !empty($discriminator["subclassSuffix"])? $discriminator["subclassSuffix"]: "";
+
+        if (empty($discriminator["map"])) {
+            throw new MetadataException("Invalid entity inheritance configuration. The discriminator map was missing");
+        }
+        $map = $discriminator["map"];
+        foreach ($map as $type => $class) {
+            // if the class is "true", use the type instead
+            if ($class === true) {
+                $class = $type;
+            }
+            $class = $this->toStudlyCaps($class);
+
+            // check each form to see if the class exists (FQCN, with namespace, with namespace and suffix)
+            if (!class_exists($class)) {
+                $class = $namespace . "\\" . $class;
+                if (!class_exists($class)) {
+                    $class .= $suffix;
+                    if (!class_exists($class)) {
+                        throw new MetadataException("Invalid entity inheritance configuration. The subclass type '$type' did not map to a class that exists");
+                    }
+                }
+            }
+
+            $ref = new \ReflectionClass($class);
+
+            $this->findClayMethods($ref, true);
         }
     }
 
