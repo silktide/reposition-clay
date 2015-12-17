@@ -17,6 +17,8 @@ class ClayMetadataFactory implements EntityMetadataFactoryInterface
 
     protected $adders = [];
 
+    protected $owningClass = [];
+
     /**
      * {@inheritDoc}
      */
@@ -63,7 +65,7 @@ class ClayMetadataFactory implements EntityMetadataFactoryInterface
                     $type = EntityMetadata::FIELD_TYPE_ARRAY;
                 } else {
                     // detect type
-                    $type = $this->detectPropertyType($ref, $getter, $setter, $property);
+                    $type = $this->detectPropertyType($this->owningClass[$property], $getter, $setter, $property);
                 }
                 $fieldMetadata = [
                     EntityMetadata::METADATA_FIELD_TYPE => $type,
@@ -114,6 +116,9 @@ class ClayMetadataFactory implements EntityMetadataFactoryInterface
                         break;
                 }
                 $this->{$collection}[$property] = $method;
+                if (empty($this->owningClass[$property])) {
+                    $this->owningClass[$property] = $ref;
+                }
             }
         }
 
