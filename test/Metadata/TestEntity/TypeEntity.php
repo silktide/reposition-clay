@@ -21,6 +21,10 @@ class TypeEntity
 
     protected $arrayProp;
 
+    protected $noSetterProp;
+
+    protected $noGetterProp;
+
     /**
      * @param mixed $boolProp
      */
@@ -131,6 +135,22 @@ class TypeEntity
     public function getArrayProp()
     {
         return $this->arrayProp;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNoSetterProp()
+    {
+        return $this->noSetterProp;
+    }
+
+    /**
+     * @param mixed $noGetterProp
+     */
+    public function setNoGetterProp($noGetterProp)
+    {
+        $this->noGetterProp = $noGetterProp;
     }
 
 
