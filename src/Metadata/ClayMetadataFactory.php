@@ -41,6 +41,10 @@ class ClayMetadataFactory implements EntityMetadataFactoryInterface
         */
 
         foreach ($this->setters as $property => $setterMethod) {
+            if (empty($this->getters[$property])) {
+                // can't continue without a getter
+                continue;
+            }
             /** @var \ReflectionMethod $setterMethod */
             /** @var \ReflectionParameter $valueParam */
             $valueParam = $setterMethod->getParameters()[0];
@@ -56,6 +60,7 @@ class ClayMetadataFactory implements EntityMetadataFactoryInterface
             $class = $valueParam->getClass();
             // ignore properties that have relationships with other entities
             if (empty($class) || empty($class->getNamespaceName())) {
+
                 /** @var \ReflectionMethod $getterMethod */
                 $getterMethod = $this->getters[$property];
                 $getter = $getterMethod->getName();
