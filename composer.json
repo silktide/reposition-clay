@@ -3,12 +3,6 @@
   "description": "module for integrating downsider/clay with silktide/reposition",
   "license": "MIT",
   "homepage": "https://github.com/silktide/reposition-clay",
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "http://satis.silktide.com"
-    }
-  ],
   "require": {
     "php": ">=5.5.0",
     "silktide/reposition": "^1.4.1",
