@@ -22,3 +22,6 @@ services:
 
         silktide_reposition.defaultMetadataFactory:
             aliasOf: "@metadataFactory"
+
+        silktide_reposition.defaultEntityFactory:
+            aliasOf: "@entityFactory"
