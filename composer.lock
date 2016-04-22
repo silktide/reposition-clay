@@ -4,28 +4,29 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8c4ec04b44c1aac53edc8b987efc604e",
-    "content-hash": "eab22a14ddfb3f128a198859db8a9898",
+    "hash": "7628844de1ce3b66bcbb8b57508212a8",
+    "content-hash": "6253a08f69d471a02263a5483b1cb754",
     "packages": [
         {
             "name": "downsider/clay",
-            "version": "1.2.6",
+            "version": "1.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/downsider/clay.git",
-                "reference": "618611a6162cc53f69dbfaaa5065c9ba5f18fb8c"
+                "reference": "f258a4935f415389613b89c5c185e4e6b6a1ae00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/downsider/clay/zipball/618611a6162cc53f69dbfaaa5065c9ba5f18fb8c",
-                "reference": "618611a6162cc53f69dbfaaa5065c9ba5f18fb8c",
+                "url": "https://api.github.com/repos/downsider/clay/zipball/f258a4935f415389613b89c5c185e4e6b6a1ae00",
+                "reference": "f258a4935f415389613b89c5c185e4e6b6a1ae00",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.*"
+                "phpunit/phpunit": "4.*",
+                "symfony/yaml": "^2.8"
             },
             "type": "library",
             "autoload": {
@@ -45,20 +46,20 @@
                 "model",
                 "models"
             ],
-            "time": "2015-12-16 13:22:48"
+            "time": "2016-04-17 23:28:01"
         },
         {
             "name": "silktide/reposition",
-            "version": "1.5.10",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/silktide/reposition.git",
-                "reference": "1ac612003f44e585550f2a4fcca821d48f5f6da7"
+                "reference": "4ddcf6601df1052b223447c304f7e5cb50f28404"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/silktide/reposition/zipball/1ac612003f44e585550f2a4fcca821d48f5f6da7",
-                "reference": "1ac612003f44e585550f2a4fcca821d48f5f6da7",
+                "url": "https://api.github.com/repos/silktide/reposition/zipball/4ddcf6601df1052b223447c304f7e5cb50f28404",
+                "reference": "4ddcf6601df1052b223447c304f7e5cb50f28404",
                 "shasum": ""
             },
             "require": {
@@ -91,7 +92,7 @@
             ],
             "description": "A modular database abstraction system",
             "homepage": "https://github.com/silktide/reposition",
-            "time": "2016-03-09 13:42:45"
+            "time": "2016-04-22 16:44:34"
         }
     ],
     "packages-dev": [
@@ -1111,16 +1112,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.0.3",
+            "version": "v3.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "b5ba64cd67ecd6887f63868fa781ca094bd1377c"
+                "reference": "0047c8366744a16de7516622c5b7355336afae96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/b5ba64cd67ecd6887f63868fa781ca094bd1377c",
-                "reference": "b5ba64cd67ecd6887f63868fa781ca094bd1377c",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/0047c8366744a16de7516622c5b7355336afae96",
+                "reference": "0047c8366744a16de7516622c5b7355336afae96",
                 "shasum": ""
             },
             "require": {
@@ -1156,7 +1157,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-02-23 15:16:06"
+            "time": "2016-03-04 07:55:57"
         }
     ],
     "aliases": [],

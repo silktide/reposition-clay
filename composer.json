@@ -5,7 +5,7 @@
   "homepage": "https://github.com/silktide/reposition-clay",
   "require": {
     "php": ">=5.5.0",
-    "silktide/reposition": "^1.4.1",
+    "silktide/reposition": "^1.6.0",
     "downsider/clay": "^1.0"
   },
   "require-dev": {
