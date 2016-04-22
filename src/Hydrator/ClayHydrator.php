@@ -29,37 +29,38 @@ class ClayHydrator implements HydratorInterface
     /**
      * {@inheritDoc}
      */
-    public function hydrate(array $data, $entityClass, array $options = [])
+    public function hydrate(array $data, array $options = ["output" => "normalise"])
     {
-        $this->checkClass($entityClass);
-        return $this->doHydrate($data, $entityClass, $options);
+        $data = $this->normalise($data, $options);
+        return $this->doHydrate($data, $options);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function hydrateAll(array $data, $entityClass, array $options = [])
+    public function hydrateAll(array $data, array $options = ["output" => "normalise"])
     {
-        $this->checkClass($entityClass);
-        if ($this->normaliser instanceof NormaliserInterface) {
-            $data = $this->normaliser->denormalise($data, $options);
-        }
+        $data = $this->normalise($data, $options);
         $collection = [];
         foreach ($data as $i => $subData) {
-            $collection[$i] = $this->doHydrate($subData, $entityClass, $options);
+            $collection[$i] = $this->doHydrate($subData, $options);
         }
         return $collection;
     }
 
     /**
      * @param array $data
-     * @param string $class
      * @param array $options
      * @return object
      */
-    protected function doHydrate(array $data, $class, array $options = [])
+    protected function doHydrate(array $data, array $options = [])
     {
-        $entity = $this->entityFactory->create($class, $data);
+        if ($options["output"] != "applyModel" || empty($options["entityClass"])) {
+            return $data;
+        }
+        $this->checkClass($options["entityClass"]);
+
+        $entity = $this->entityFactory->create($options["entityClass"], $data);
 
         if (!empty($options["trackCollectionChanges"])) {
             // if this entity has collections, track any changes
@@ -81,6 +82,24 @@ class ClayHydrator implements HydratorInterface
     public function setNormaliser(NormaliserInterface $normaliser)
     {
         $this->normaliser = $normaliser;
+    }
+
+    protected function normalise($data, $options)
+    {
+        if ($options["output"] != "raw" && $this->normaliser instanceof NormaliserInterface) {
+            $data = $this->normaliser->denormalise($data, $options);
+        }
+        return $data;
+    }
+
+    protected function validateOptions(array $options)
+    {
+        if (empty($options["output"]) || !in_array($options["output"], ["raw", "normalise", "applyModel"])) {
+            throw new HydrationException("Invalid options, 'output' must be one of 'raw', 'normalise' or 'applyModel'");
+        }
+        if ($options["output"] == "applyModel" && empty($options["entityClass"])) {
+            throw new HydrationException("Invalid options, cannot apply a model without an entity class");
+        }
     }
 
     /**
