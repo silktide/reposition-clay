@@ -2,6 +2,7 @@
 
 namespace Silktide\Reposition\Clay\Hydrator;
 
+use Downsider\Clay\Model\ClassDiscriminatorTrait;
 use Silktide\Reposition\Collection\CollectionFactory;
 use Silktide\Reposition\Hydrator\EntityFactoryInterface;
 
@@ -10,6 +11,7 @@ use Silktide\Reposition\Hydrator\EntityFactoryInterface;
  */
 class EntityFactory implements EntityFactoryInterface
 {
+    use ClassDiscriminatorTrait;
 
     protected $collectionFactory;
 
@@ -22,7 +24,9 @@ class EntityFactory implements EntityFactoryInterface
     {
         // detect if class uses ModelTrait
         if ($this->usesModelTrait($class)) {
-            return new $class($data, $this->collectionFactory);
+            // check if this entity is discriminated
+            $ref = $this->discriminateClass(new \ReflectionClass($class), $data);
+            return $ref->newInstance($data, $this->collectionFactory);
         }
         return new $class();
     }
