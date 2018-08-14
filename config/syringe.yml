@@ -7,7 +7,7 @@ services:
             -
                 method: "setNormaliser"
                 arguments:
-                    - "@silktide_reposition.defaultNormaliser"
+                    - "@silktide_reposition::defaultNormaliser"
 
     metadataFactory:
         class: Silktide\Reposition\Clay\Metadata\ClayMetadataFactory
@@ -15,13 +15,13 @@ services:
     entityFactory:
         class: Silktide\Reposition\Clay\Hydrator\EntityFactory
         arguments:
-            - "@silktide_reposition.collectionFactory"
+            - "@silktide_reposition::collectionFactory"
 
-    silktide_reposition.defaultHydrator:
+    silktide_reposition::defaultHydrator:
         aliasOf: "@hydrator"
 
-    silktide_reposition.defaultMetadataFactory:
+    silktide_reposition::defaultMetadataFactory:
         aliasOf: "@metadataFactory"
 
-    silktide_reposition.defaultEntityFactory:
+    silktide_reposition::defaultEntityFactory:
         aliasOf: "@entityFactory"
